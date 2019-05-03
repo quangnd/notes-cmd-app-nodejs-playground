@@ -9,7 +9,7 @@ const addQuestions = [
   {
     type: "input",
     name: "title",
-    message: "Enter new title ...",
+    message: "Enter new title:",
     validate: function(value) {
       if (value.length) {
         return true;
@@ -20,7 +20,7 @@ const addQuestions = [
   {
     type: "input",
     name: "content",
-    message: "Enter new content ...",
+    message: "Enter new content:",
     validate: function(value) {
       if (value.length) {
         return true;
@@ -34,7 +34,7 @@ const removeQuestions = [
   {
     type: "input",
     name: "title",
-    message: "Enter title to remove ...",
+    message: "Enter title to remove:",
     validate: function(value) {
       if (value.length) {
         return true;
@@ -48,7 +48,8 @@ const readQuestions = [
   {
     type: "input",
     name: "title",
-    message: function(value) {
+    message: "Enter title to read:",
+    validate: function(value) {
       if (value.length) {
         return true;
       }

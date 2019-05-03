@@ -46,7 +46,9 @@ const removeNote = () => {
 };
 
 const readNote = () => {
-  apis.readNote(answer.title);
+  prompt(readQuestions).then(answer => {
+    apis.readNote(answer.title);
+  });
 };
 
 const listNotes = () => {

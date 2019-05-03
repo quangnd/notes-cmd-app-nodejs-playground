@@ -21,10 +21,10 @@ Experiences with command lines using NodeJS
 2. Run `npm start` or `node app` to see the main menu.
 3. Also, play with APIs
 
-- To create a note `node app add "Note 1" "Just for fun"`
-- To remove a note `node app remove "Note 1"`
+- To create a note `node app add`
+- To remove a note `node app remove`
 - To list a note `node app list`
-- To read body of a note `node app read "Note 1"`
+- To read body of a note `node app read`
 
 4. Delete data file (if had one) `npm run delete`
 
