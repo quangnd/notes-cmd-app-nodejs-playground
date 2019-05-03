@@ -1,64 +1,53 @@
-const yargs = require("yargs");
 const apis = require("./apis");
+const program = require("commander");
 
-yargs.version("1.0.0");
-
-yargs.command({
-  command: "add",
-  describe: "Create a new note",
-  builder: {
-    title: {
-      describe: "Title",
-      demandOption: true,
-      type: "string"
-    },
-    content: {
-      describe: "Content of note",
-      demandOption: true,
-      type: "string"
-    }
+// Build UI
+// Craft questions to present to users
+const questions = [
+  {
+    type: "input",
+    name: "title",
+    message: "Enter title ..."
   },
-  handler: argv => {
-    apis.createNote(argv.title, argv.content);
+  {
+    type: "input",
+    name: "content",
+    message: "Enter content ..."
   }
-});
+];
 
-yargs.command({
-  command: "remove",
-  describe: "Remove a note",
-  builder: {
-    title: {
-      describe: "Title",
-      demandOption: true,
-      type: "string"
-    }
-  },
-  handler: argv => {
-    apis.removeNote(argv.title);
-  }
-});
+program.version("0.0.1").description("Node management app");
 
-yargs.command({
-  command: "list",
-  describe: "List notes",
-  handler: argv => {
+program
+  .command("add <title> <content>")
+  .alias("a")
+  .description("Add a note")
+  .action((title, content) => {
+    apis.createNote(title, content);
+  });
+
+program
+  .command("remove <title>")
+  .alias("r")
+  .description("Remove a note")
+  .action(title => {
+    apis.removeNote(title);
+  });
+
+program
+  .command("list")
+  .alias("r")
+  .description("List notes")
+  .action(() => {
     apis.listNotes();
-  }
-});
+  });
 
-yargs.command({
-  command: "read",
-  describe: "Read a note",
-  builder: {
-    title: {
-      describe: "Title",
-      demandOption: true,
-      type: "string"
-    }
-  },
-  handler: argv => {
-    apis.readNote(argv.title);
-  }
-});
+program
+  .command("read <title>")
+  .alias("r")
+  .description("Read a note by title")
+  .action(title => {
+    apis.readNote(title);
+  });
 
-yargs.parse();
+program.parse(process.argv);

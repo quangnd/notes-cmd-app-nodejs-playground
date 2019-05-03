@@ -14,10 +14,10 @@ Experiences with command lines using NodeJS
 1. Run `npm install`.
 2. Play with APIs
 
-- To create a note `node app add --title="Note 1" --content="Just for fun"`
-- To remove a note `node app remove --title="Note 1"`
+- To create a note `node app add "Note 1" "Just for fun"`
+- To remove a note `node app remove "Note 1"`
 - To list a note `node app list`
-- To read body of a note `node app read --title="Note 1"`
+- To read body of a note `node app read "Note 1"`
 
 3. Delete data file (if had one) `npm run delete`
 
