@@ -33,11 +33,11 @@ const listNotes = () => {
   const notes = loadNotes();
 
   if (!notes.length) {
-    console.log(chalk.red("You have no node now. Please create one first!"));
+    console.log(chalk.red("You have no note now. Please create one first!"));
     return;
   }
 
-  console.log(chalk.yellow("Your nodes:"));
+  console.log(chalk.yellow("Your notes:"));
   notes.forEach((n, index) => {
     console.log(
       chalk.green(`${index + 1}. Title: ${n.title}, Content: ${n.content}`)

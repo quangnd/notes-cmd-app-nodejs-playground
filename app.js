@@ -1,37 +1,73 @@
-const apis = require("./apis");
 const program = require("commander");
+const { prompt } = require("inquirer");
+const apis = require("./apis");
+const {
+  readQuestions,
+  addQuestions,
+  removeQuestions,
+  mainUI
+} = require("./buildUI");
+
+program.version("0.0.1").description("Note management app");
 
 // Build UI
-// Craft questions to present to users
-const questions = [
-  {
-    type: "input",
-    name: "title",
-    message: "Enter title ..."
-  },
-  {
-    type: "input",
-    name: "content",
-    message: "Enter content ..."
-  }
-];
+// Craft questions to present to users if only run `node app`
+if (!process.argv[2]) {
+  prompt(mainUI).then(answers => {
+    switch (answers.actionType) {
+      case "Add a note":
+        addNote();
+        break;
+      case "Read a note":
+        readNote();
+        break;
+      case "Remove a note":
+        removeNote();
+        break;
+      case "List":
+        listNotes();
+        break;
+      default:
+        break;
+    }
+  });
+}
 
-program.version("0.0.1").description("Node management app");
+const addNote = () => {
+  prompt(addQuestions).then(answer => {
+    apis.createNote(answer.title, answer.content);
+  });
+};
 
+const removeNote = () => {
+  prompt(removeQuestions).then(answer => {
+    apis.removeNote(answer.title);
+  });
+};
+
+const readNote = () => {
+  apis.readNote(answer.title);
+};
+
+const listNotes = () => {
+  apis.listNotes();
+};
+
+// For direct commands like: node app add "title" "content"
 program
-  .command("add <title> <content>")
+  .command("add")
   .alias("a")
   .description("Add a note")
-  .action((title, content) => {
-    apis.createNote(title, content);
+  .action(() => {
+    addNote();
   });
 
 program
-  .command("remove <title>")
+  .command("remove")
   .alias("r")
   .description("Remove a note")
-  .action(title => {
-    apis.removeNote(title);
+  .action(() => {
+    removeNote();
   });
 
 program
@@ -39,15 +75,15 @@ program
   .alias("r")
   .description("List notes")
   .action(() => {
-    apis.listNotes();
+    listNotes();
   });
 
 program
-  .command("read <title>")
-  .alias("r")
+  .command("read")
+  .alias("re")
   .description("Read a note by title")
-  .action(title => {
-    apis.readNote(title);
+  .action(() => {
+    readNote();
   });
 
 program.parse(process.argv);
